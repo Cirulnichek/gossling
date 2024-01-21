@@ -64,6 +64,15 @@ public class DrawThread extends Thread {
                     this.tesla.draw(canvas, paint);
                     this.mcqueen.draw(canvas, paint);
                     this.camaro.draw(canvas, paint);
+                    if (gossling.intersect(camaro)) {
+                        System.out.println(2);
+                    }
+                    if (gossling.intersect(tesla)) {
+                        System.out.println(3);
+                    }
+                    if (gossling.intersect(mcqueen)) {
+                        System.out.println(1);
+                    }
                 } finally {
                     holder.unlockCanvasAndPost(canvas);
                 }

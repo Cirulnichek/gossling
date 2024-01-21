@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.util.DisplayMetrics;
 
 import com.example.gossling.R;
 
@@ -16,6 +18,7 @@ public class Gossling {
     private float end_x, end_y;
     int speed = 0;
     double angle = 0;
+    int w, h;
 
     public Gossling(Context context) {
         this.context = context;
@@ -24,6 +27,9 @@ public class Gossling {
         width = img.getWidth();
         x = 100;
         y = 150;
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        h = displayMetrics.heightPixels;
+        w = displayMetrics.widthPixels;
     }
 
     public Gossling(Context context, float x, float y, float end_x,
@@ -38,6 +44,9 @@ public class Gossling {
         this.y = y;
         this.end_x = end_x;
         this.end_y = end_y;
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        h = displayMetrics.heightPixels;
+        w = displayMetrics.widthPixels;
     }
 
     public Bitmap getImg() {
@@ -65,12 +74,26 @@ public class Gossling {
     }
 
     public void update() {
-        x += speed * Math.cos(angle);
-        y += speed * Math.sin(angle);
-        if (Math.abs(end_x - (x + 50)) < 50 &&
-            Math.abs(end_y - (y + 75)) < 75) {
+        if (Math.abs(end_x - (x + 100)) < 50 &&
+                Math.abs(end_y - (y + 75)) < 75) {
             speed = 0;
             angle = 0;
         }
+        x += speed * Math.cos(angle);
+        y += speed * Math.sin(angle);
+        if (x < 20 || x > h - 20 || y < 20 || y > w - 20) {
+            speed = 0;
+            angle = 0;
+            x -= speed * Math.cos(angle);
+            y -= speed * Math.sin(angle);
+        }
+    }
+
+    public Rect getBoundingBoxRect () {
+        return new Rect((int)x, (int)y, (int)(x + width), (int)(y + height));
+    }
+
+    public boolean intersect (Car s) {
+        return getBoundingBoxRect().intersect(s.getBoundingBoxRect());
     }
 }

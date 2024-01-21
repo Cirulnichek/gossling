@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import com.example.gossling.R;
 
@@ -47,5 +48,9 @@ public class Car {
 
     public void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(img, x, y, paint);
+    }
+
+    public Rect getBoundingBoxRect () {
+        return new Rect((int)x, (int)y, (int)(x + width), (int)(y + height));
     }
 }
