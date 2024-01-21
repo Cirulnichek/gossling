@@ -58,7 +58,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (Gossling_x > x) {
             angle += Math.PI / 2;
         }
-        drawThread = new DrawThread(context, holder, Gossling_x, Gossling_y, 10, angle);
+        drawThread = new DrawThread(context, holder, Gossling_x, Gossling_y, x, y, 10, angle);
         drawThread.start();
         return true;
     }

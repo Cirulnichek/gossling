@@ -37,12 +37,12 @@ public class DrawThread extends Thread {
     }
 
     public DrawThread(Context context, SurfaceHolder surfaceHolder,
-                      float x, float y, int speed, double angle) {
+                      float startx, float starty, float endx, float endy, int speed, double angle) {
         this.holder = surfaceHolder;
         this.context = context;
         this.working = true;
 
-        this.gossling = new Gossling(context, x, y, speed, angle);
+        this.gossling = new Gossling(context, startx, starty, endx, endy, speed, angle);
         this.camaro = new Car(this.context, R.drawable.camaro, 1600, 100);
         this.mcqueen = new Car(this.context, R.drawable.mcqueen, 400, 630);
         this.tesla = new Car(this.context, R.drawable.tesla, 1200, 560);

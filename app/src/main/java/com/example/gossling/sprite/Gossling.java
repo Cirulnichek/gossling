@@ -12,7 +12,8 @@ public class Gossling {
     private Context context;
     private Bitmap img;
     private int height, width;
-    private float  x = 500, y = 100;
+    private float x, y;
+    private float end_x, end_y;
     int speed = 0;
     double angle = 0;
 
@@ -21,15 +22,20 @@ public class Gossling {
         img = BitmapFactory.decodeResource(context.getResources(), R.drawable.gossling2);
         height = img.getHeight();
         width = img.getWidth();
+        x = 100;
+        y = 150;
     }
 
-    public Gossling(Context context, float x, float y, int speed, double angle) {
+    public Gossling(Context context, float x, float y, float end_x,
+                    float end_y, int speed, double angle) {
         this.context = context;
         this.img = BitmapFactory.decodeResource(context.getResources(), R.drawable.gossling2);
         this.height = img.getHeight();
         this.width = img.getWidth();
         this.speed = speed;
         this.angle = angle;
+        this.end_x = x;
+        this.end_y = y;
     }
 
     public Bitmap getImg() {
@@ -59,5 +65,9 @@ public class Gossling {
     public void update() {
         x += speed * Math.cos(angle);
         y += speed * Math.sin(angle);
+        if ((end_x - 15 < x && x < end_x + 15) && (end_y - 15 < y && y < end_y + 15)) {
+            speed = 0;
+            angle = 0;
+        }
     }
 }
