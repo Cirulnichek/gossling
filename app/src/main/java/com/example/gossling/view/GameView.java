@@ -1,6 +1,7 @@
 package com.example.gossling.view;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,6 +14,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Context context;
     private DrawThread drawThread;
     private SurfaceHolder holder;
+    private float x, y;
     public GameView(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -36,5 +38,28 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         drawThread.requestStop();
     }
 
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Pair<Float, Float> p = drawThread.requestStop();
+        float Gossling_x = p.first;
+        float Gossling_y = p.second;
+        x = event.getRawX();
+        y = event.getRawY();
+        double angle;
+        try {
+            angle = Math.atan((y - Gossling_y) / (x - Gossling_x));
+        } catch (Exception e) {
+            if (y >= Gossling_y) {
+                angle = Math.PI / 2;
+            } else {
+                angle = 3 * Math.PI / 2;
+            }
+        }
+        if (Gossling_x > x) {
+            angle += Math.PI / 2;
+        }
+        drawThread = new DrawThread(context, holder, Gossling_x, Gossling_y, 10, angle);
+        drawThread.start();
+        return true;
+    }
 }
