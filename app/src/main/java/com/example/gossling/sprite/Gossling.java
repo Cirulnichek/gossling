@@ -34,8 +34,10 @@ public class Gossling {
         this.width = img.getWidth();
         this.speed = speed;
         this.angle = angle;
-        this.end_x = x;
-        this.end_y = y;
+        this.x = x;
+        this.y = y;
+        this.end_x = end_x;
+        this.end_y = end_y;
     }
 
     public Bitmap getImg() {
@@ -65,7 +67,8 @@ public class Gossling {
     public void update() {
         x += speed * Math.cos(angle);
         y += speed * Math.sin(angle);
-        if ((end_x - 15 < x && x < end_x + 15) && (end_y - 15 < y && y < end_y + 15)) {
+        if (Math.abs(end_x - (x + 50)) < 50 &&
+            Math.abs(end_y - (y + 75)) < 75) {
             speed = 0;
             angle = 0;
         }

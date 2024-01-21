@@ -47,7 +47,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         y = event.getRawY();
         double angle;
         try {
-            angle = Math.atan((y - Gossling_y) / (x - Gossling_x));
+            angle = Math.atan(Math.abs(y - Gossling_y) / Math.abs(x - Gossling_x));
         } catch (Exception e) {
             if (y >= Gossling_y) {
                 angle = Math.PI / 2;
@@ -55,8 +55,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 angle = 3 * Math.PI / 2;
             }
         }
-        if (Gossling_x > x) {
-            angle += Math.PI / 2;
+        if (x < Gossling_x && y > Gossling_y) {
+            angle = Math.PI - angle;
+        }
+        if (x < Gossling_x && y < Gossling_y) {
+            angle = Math.PI + angle;
+        }
+        if (x > Gossling_x && y < Gossling_y) {
+            angle *= -1;
         }
         drawThread = new DrawThread(context, holder, Gossling_x, Gossling_y, x, y, 10, angle);
         drawThread.start();
