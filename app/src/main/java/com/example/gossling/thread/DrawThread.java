@@ -66,15 +66,24 @@ public class DrawThread extends Thread {
                     this.mcqueen.draw(canvas, paint);
                     this.camaro.draw(canvas, paint);
                     if (gossling.intersect(camaro)) {
-                        new End(context, R.drawable.end, 0, 0).draw(canvas, paint);
+                        End end = new End(context, R.drawable.end, 0, 0);
+                        end.setHeight(height);
+                        end.setWidth(width);
+                        end.draw(canvas, paint);
                         this.requestStop();
                     }
                     if (gossling.intersect(tesla)) {
-                        new End(context, R.drawable.end, 0, 0).draw(canvas, paint);
+                        End end = new End(context, R.drawable.end, 0, 0);
+                        end.setHeight(height);
+                        end.setWidth(width);
+                        end.draw(canvas, paint);
                         this.requestStop();
                     }
                     if (gossling.intersect(mcqueen)) {
-                        new End(context, R.drawable.end, 0, 0).draw(canvas, paint);
+                        End end = new End(context, R.drawable.end, 0, 0);
+                        end.setHeight(height);
+                        end.setWidth(width);
+                        end.draw(canvas, paint);
                         this.requestStop();
                     }
                 } finally {

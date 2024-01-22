@@ -51,4 +51,12 @@ public class End {
     public Rect getBoundingBoxRect () {
         return new Rect((int)x, (int)y, (int)(x + width), (int)(y + height));
     }
+
+    public void setHeight(int height) {
+        this.img.setHeight(height);
+    }
+
+    public void setWidth(int width) {
+        this.img.setWidth(width);
+    }
 }
