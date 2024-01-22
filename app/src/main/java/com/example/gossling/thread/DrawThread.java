@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import com.example.gossling.ProcessingOfUserData;
 import com.example.gossling.R;
 import com.example.gossling.sprite.Car;
+import com.example.gossling.sprite.End;
 import com.example.gossling.sprite.Gossling;
 
 public class DrawThread extends Thread {
@@ -65,13 +66,16 @@ public class DrawThread extends Thread {
                     this.mcqueen.draw(canvas, paint);
                     this.camaro.draw(canvas, paint);
                     if (gossling.intersect(camaro)) {
-                        System.out.println(2);
+                        new End(context, R.drawable.end, 0, 0).draw(canvas, paint);
+                        this.requestStop();
                     }
                     if (gossling.intersect(tesla)) {
-                        System.out.println(3);
+                        new End(context, R.drawable.end, 0, 0).draw(canvas, paint);
+                        this.requestStop();
                     }
                     if (gossling.intersect(mcqueen)) {
-                        System.out.println(1);
+                        new End(context, R.drawable.end, 0, 0).draw(canvas, paint);
+                        this.requestStop();
                     }
                 } finally {
                     holder.unlockCanvasAndPost(canvas);
